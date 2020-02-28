@@ -15,11 +15,13 @@ const Login = (props) => {
   const handleChange = e => {
     setLogin({
       credential: {
-        ...login,
+        ...login.credential,
         [e.target.name]: e.target.value
       }
     });
   };
+
+  console.log(login)
 
   const handleLogin = e => {
     e.preventDefault();
@@ -46,7 +48,7 @@ const Login = (props) => {
           id="standard-required"
           label="Username"
           onChange={handleChange}
-          value={login.credential.password}
+          value={login.credential.username}
         />
         <TextField
           required
