@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from 'axios';
 
+import '../login.css'
 import { TextField, Button, CircularProgress } from "@material-ui/core";
 
 const Login = (props) => {
@@ -38,36 +39,38 @@ const Login = (props) => {
   
   return (
     <>
-      <h1>Welcome to the Bubble App!</h1>
-      <form onSubmit={handleLogin}>
-        <TextField
-          required
-          name="username"
-          id="standard-required"
-          label="Username"
-          onChange={handleChange}
-          value={login.credential.username}
-        />
-        <TextField
-          required
-          name="password"
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          onChange={handleChange}
-          value={login.credential.password}
-        />
-        {isLoading ? (
-          <CircularProgress disableShrink />
-        ) : (
-          <div>
-            <Button type="submit" variant="contained" color="primary">
-              Login
-            </Button>
-          </div>
-        )}
-      </form>
+      <h1 className='login-title'>Welcome to the Bubble App!</h1>
+      <div className='login-form'>
+        <form onSubmit={handleLogin}>
+          <TextField
+            required
+            name="username"
+            id="standard-required"
+            label="Username"
+            onChange={handleChange}
+            value={login.credential.username}
+          />
+          <TextField
+            required
+            name="password"
+            id="standard-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onChange={handleChange}
+            value={login.credential.password}
+          />
+          {isLoading ? (
+            <CircularProgress disableShrink />
+          ) : (
+            <div className='login-btn'>
+              <Button type="submit" variant="contained" color="primary">
+                Login
+              </Button>
+            </div>
+          )}
+        </form>
+      </div>
     </>
   );
 };
