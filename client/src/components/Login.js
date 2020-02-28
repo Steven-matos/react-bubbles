@@ -1,28 +1,72 @@
-import React from "react";
-import {TextField, Button} from '@material-ui/core';
+import React, {useState} from "react";
+import axios from 'axios';
 
-const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+import { TextField, Button, CircularProgress } from "@material-ui/core";
+
+const Login = (props) => {
+  const [login, setLogin] = useState({
+      credential: {
+        username: '',
+        password: ''
+      }
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = e => {
+    setLogin({
+      credential: {
+        ...login,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  const handleLogin = e => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/login', login.credential)
+    .then(res => {
+      console.log(res)
+      setIsLoading(true)
+      window.localStorage.setItem('token', res.data.payload)
+      setIsLoading(false)
+      props.history.push('/colors')
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+  
   return (
     <>
       <h1>Welcome to the Bubble App!</h1>
-      <form>
+      <form onSubmit={handleLogin}>
         <TextField
           required
-          name='username'
+          name="username"
           id="standard-required"
           label="Username"
+          onChange={handleChange}
+          value={login.credential.password}
         />
         <TextField
           required
-          name='password'
+          name="password"
           id="standard-password-input"
           label="Password"
           type="password"
           autoComplete="current-password"
+          onChange={handleChange}
+          value={login.credential.password}
         />
-        <Button variant='contained' color="primary">Sign In</Button>
+        {isLoading ? (
+          <CircularProgress disableShrink />
+        ) : (
+          <div>
+            <Button type="submit" variant="contained" color="primary">
+              Login
+            </Button>
+          </div>
+        )}
       </form>
     </>
   );
