@@ -1,0 +1,15 @@
+.login-title {
+  display: inline;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 6.5rem;
+}
+
+.login-form {
+    margin: 0 auto;
+    width: 20%;
+}
+
+.login-btn {
+    margin-top: 1rem;
+}
